@@ -1,6 +1,7 @@
 from email_validator import validate_email, EmailNotValidError
 from graphql import GraphQLError
 
+
 def validate_empty_fields(**kwargs):
     """
     Function to validate empty fields when
@@ -11,14 +12,16 @@ def validate_empty_fields(**kwargs):
         if not kwargs.get(field):
             raise AttributeError(field + " is required field")
 
+
 def validate_password_length(password):
     """
-    Function to validate length of password 
+    Function to validate length of password
     when saving user password to database
     :params password
     """
     if len(password) < 8 or len(password) > 32:
         raise AttributeError("password must be between 8 and 32 characters")
+
 
 def validate_username(username):
     """
@@ -28,6 +31,7 @@ def validate_username(username):
     """
     if len(username) < 5 or len(username) > 15:
         raise AttributeError("username must be between 5 and 15 characters")
+
 
 def check_email(email):
     """
@@ -41,16 +45,18 @@ def check_email(email):
     except EmailNotValidError:
         raise AttributeError("email is not valid")
 
+
 def validate_fullname(firstname, lastname):
     """
     Function to validate firstname and lastname
     when saving firstname and lastname to database
     :params firstname, lastname
     """
-    if not firstname.replace(' ', '').isalpha() or len(firstname) < 3 or len(firstname) > 15:
-        raise AttributeError("firstname can only be alphabets between 3 to 15 characters")
-    if not lastname.replace(' ', '').isalpha() or len(lastname) < 3 or len(lastname) > 15:
-        raise AttributeError("lastname can only be alphabets between 3 to 15 characters")
+    if not firstname.replace(' ', '').isalpha() or len(firstname) < 3 or len(firstname) > 15:  # noqa: E501
+        raise AttributeError("firstname can only be alphabets between 3 to 15 characters")  # noqa: E501
+    if not lastname.replace(' ', '').isalpha() or len(lastname) < 3 or len(lastname) > 15:  # noqa: E501
+        raise AttributeError("lastname can only be alphabets between 3 to 15 characters")  # noqa: E501
+
 
 class ErrorHandler():
     '''Handles error'''
