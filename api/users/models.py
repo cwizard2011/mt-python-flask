@@ -1,10 +1,10 @@
-from sqlalchemy import (Column, String, Integer, Enum)
-from sqlalchemy.orm import relationship
+from sqlalchemy import (Column, String, Integer)
 from werkzeug.security import generate_password_hash
 
 from helpers.database import Base
 
 from utility.database import Utility
+
 
 class User(Base, Utility):
     __tablename__ = 'userlist'
@@ -13,20 +13,16 @@ class User(Base, Utility):
     password = Column(String, nullable=False)
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=False)
-    user_role = Column(String, nullable=False, default="user")
+    user_role = Column(String, nullable=False, server_default="user")
     image = Column(String)
-    
-    def __init__(self, password, firstname, lastname, email):
+
+    def __init__(self, **kwargs):
         self.password = generate_password_hash(
-            password,
+            kwargs['password'],
             method='sha256'
         )
-        self.firstname = firstname
-        self.lastname = lastname
-        self.email = email
+        self.firstname = kwargs['firstname']
+        self.lastname = kwargs['lastname']
+        self.email = kwargs['email']
 
     def __repr__(self): return self
-
-
-
-

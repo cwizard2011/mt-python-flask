@@ -14,6 +14,7 @@ from helpers.database import db_session
 
 mail = Mail()
 
+
 def create_app(config_name):
     app = Flask(__name__)
     app.json_encoder = DynamicJSONEncoder
@@ -37,5 +38,5 @@ def create_app(config_name):
     @app.teardown_appcontext
     def shutdown_session(exception=None):
         db_session.remove()
-    
+
     return app

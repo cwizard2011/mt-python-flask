@@ -1,11 +1,12 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY') or 'one long hard string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
-    #Flask-Mail configuration
+    # Flask-Mail configuration
     MAIL_SERVER = os.getenv('MAIL_SERVER')
     MAIL_PORT = os.getenv('MAIL_PORT')
     MAIL_USE_TLS = os.getenv('MAIL_USE_TLS')
@@ -16,6 +17,7 @@ class Config:
     @staticmethod
     def init_app(app):
         pass
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
