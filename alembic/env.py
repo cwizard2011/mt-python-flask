@@ -25,6 +25,7 @@ config.set_main_option('sqlalchemy.url', os.getenv('DATABASE_URL_DEV'))
 
 from helpers.database import Base
 from api.users.models import User
+from api.requests.models import Request
 
 target_metadata = Base.metadata
 

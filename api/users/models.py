@@ -13,16 +13,24 @@ class User(Base, Utility):
     password = Column(String, nullable=False)
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=False)
-    user_role = Column(String, nullable=False, server_default="user")
+    user_role = Column(String, nullable=False)
     image = Column(String)
 
-    def __init__(self, **kwargs):
+    def __init__(
+        self,
+        password,
+        firstname,
+        lastname,
+        email,
+        user_role='user'
+            ):
         self.password = generate_password_hash(
-            kwargs['password'],
+            password,
             method='sha256'
         )
-        self.firstname = kwargs['firstname']
-        self.lastname = kwargs['lastname']
-        self.email = kwargs['email']
+        self.firstname = firstname
+        self.lastname = lastname
+        self.email = email
+        self.user_role = user_role
 
     def __repr__(self): return self

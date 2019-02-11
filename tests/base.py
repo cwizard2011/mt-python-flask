@@ -5,7 +5,7 @@ from app import create_app
 from schema import schema
 from helpers.database import engine, db_session, Base
 from api.users.models import User
-from fixtures.token.token import ADMIN_TOKEN, USER_TOKEN
+
 
 import sys
 import os
@@ -31,7 +31,8 @@ class BaseTestCase(TestCase):
             user = User(email="cwizard2011@gmail.com",
                         password="september",
                         firstname="Peter",
-                        lastname="Adeola")
+                        lastname="Adeola",
+                        user_role="admin")
             user.save()
             user_2 = User(email="sjuliet07@gmail.com",
                           password="september",
@@ -57,7 +58,7 @@ class CommonTestCases(BaseTestCase):
         - user_token_assert_in
     """
 
-    def admin_token_assert_equal(self, query, expected_response):
+    def admin_token_assert_equal(self, admin_token, query, expected_response):
         """
         Make a request with admin token and use assertEquals
         to compare the values
@@ -65,7 +66,7 @@ class CommonTestCases(BaseTestCase):
         :params
             - query, expected_response
         """
-        headers = {"Authorization": ADMIN_TOKEN}
+        headers = {"token": admin_token}
         response = self.app_test.post(
             '/mt?query=' + query, headers=headers)
         actual_response = json.loads(response.data)
@@ -79,7 +80,14 @@ class CommonTestCases(BaseTestCase):
         actual_response = json.loads(response.data)
         self.assertEqual(actual_response, expected_response)
 
-    def admin_token_assert_in(self, query, expected_response):
+    def user_registration_assert_in(self, query, expected_response):
+        """
+        Login a user
+        """
+        response = self.app_test.post('/mt?query=' + query)
+        self.assertIn(expected_response, str(response.data))
+
+    def admin_token_assert_in(self, admin_token, query, expected_response):
         """
         Make a request with admin token and use assertIn
         to compare the values
@@ -87,11 +95,11 @@ class CommonTestCases(BaseTestCase):
         :params
             - query, expected_response
         """
-        headers = {"Authorization": ADMIN_TOKEN}
+        headers = {"token": admin_token}
         response = self.app_test.post('/mt?query=' + query, headers=headers)
         self.assertIn(expected_response, str(response.data))
 
-    def user_token_assert_equal(self, query, expected_response):
+    def user_token_assert_equal(self, user_token, query, expected_response):
         """
         Make a request with user token and use assertEquals
         to compare the values
@@ -99,13 +107,13 @@ class CommonTestCases(BaseTestCase):
         :params
             - query, expected_response
         """
-        headers = {"Authorization": USER_TOKEN}
+        headers = {"token": user_token}
         response = self.app_test.post(
             '/mt?query=' + query, headers=headers)
         actual_response = json.loads(response.data)
         self.assertEqual(actual_response, expected_response)
 
-    def user_token_assert_in(self, query, expected_response):
+    def user_token_assert_in(self, user_token, query, expected_response):
         """
         Make a request with user token and use assertIn
         to compare the values
@@ -113,6 +121,6 @@ class CommonTestCases(BaseTestCase):
         :params
             - query, expected_response
         """
-        headers = {"Authorization": USER_TOKEN}
+        headers = {"token": user_token}
         response = self.app_test.post('/mt?query=' + query, headers=headers)
         self.assertIn(expected_response, str(response.data))
