@@ -38,3 +38,73 @@ user_duplication_mutation_response = {
         "createUser": null
     }
 }
+
+user_mutation_query_empty_email = '''
+mutation {
+  createUser(email: ""
+            password:"password",
+            firstname:"Juliet",
+            lastname:"Adeoye"){
+    user {
+      email,
+      userRole,
+    }
+  }
+}
+'''
+
+user_mutation_query_invalid_email = '''
+mutation {
+  createUser(email: "ssssss.cc"
+            password:"password",
+            firstname:"Juliet",
+            lastname:"Adeoye"){
+    user {
+      email,
+      userRole,
+    }
+  }
+}
+'''
+
+user_mutation_query_short_name = '''
+mutation {
+  createUser(email: "cwiz@gmail.com"
+            password:"password",
+            firstname:"J",
+            lastname:"Adeoye"){
+    user {
+      email,
+      userRole,
+    }
+  }
+}
+'''
+
+user_mutation_query_short_lastname = '''
+mutation {
+  createUser(email: "cwiz@gmail.com"
+            password:"password",
+            firstname:"Juliet",
+            lastname:"A"){
+    user {
+      email,
+      userRole,
+    }
+  }
+}
+'''
+
+user_mutation_query_short_password = '''
+mutation {
+  createUser(email: "cwiz@gmail.com"
+            password:"pas",
+            firstname:"Juliet",
+            lastname:"Adeoye"){
+    user {
+      email,
+      userRole,
+    }
+  }
+}
+'''

@@ -1,5 +1,23 @@
 null = None
 
+user_login_mutation_token = '''
+mutation {
+  loginUser(email: "sjuliet07@gmail.com"
+            password:"september"){
+    token
+  }
+}
+'''
+
+admin_login_mutation_token = '''
+mutation {
+  loginUser(email: "cwizard2011@gmail.com"
+            password:"september"){
+    token
+  }
+}
+'''
+
 user_login_mutation = '''
 mutation {
   loginUser(email: "cwizard2011@gmail.com"
@@ -18,7 +36,7 @@ user_mutation_response = {
         "loginUser": {
             "user": {
                 "email": "cwizard2011@gmail.com",
-                "userRole": "user",
+                "userRole": "admin",
                 "firstname": "Peter"
             }
         }

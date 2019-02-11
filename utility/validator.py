@@ -23,16 +23,6 @@ def validate_password_length(password):
         raise AttributeError("password must be between 8 and 32 characters")
 
 
-def validate_username(username):
-    """
-    Function to validate username
-    when saving username to database
-    :params username
-    """
-    if len(username) < 5 or len(username) > 15:
-        raise AttributeError("username must be between 5 and 15 characters")
-
-
 def check_email(email):
     """
     Function to validate email
@@ -49,13 +39,35 @@ def check_email(email):
 def validate_fullname(firstname, lastname):
     """
     Function to validate firstname and lastname
-    when saving firstname and lastname to database
+    when saving user information to database
     :params firstname, lastname
     """
-    if not firstname.replace(' ', '').isalpha() or len(firstname) < 3 or len(firstname) > 15:  # noqa: E501
-        raise AttributeError("firstname can only be alphabets between 3 to 15 characters")  # noqa: E501
-    if not lastname.replace(' ', '').isalpha() or len(lastname) < 3 or len(lastname) > 15:  # noqa: E501
-        raise AttributeError("lastname can only be alphabets between 3 to 15 characters")  # noqa: E501
+    if (
+        not firstname.replace(' ', '').isalpha()
+            or len(firstname) < 2
+            or len(firstname) > 15):
+        raise AttributeError(
+            "firstname can only be alphabets between 2 to 15 characters")
+    if (
+        not lastname.replace(' ', '').isalpha()
+            or len(lastname) < 2
+            or len(lastname) > 15):
+        raise AttributeError(
+            "lastname can only be alphabets between 2 to 15 characters")
+
+
+def validate_request_field(title, details):
+    """
+    Function to validate title and details
+    when saving a new maintenance request to the database
+    :params title, details
+    """
+    if len(title) < 5 or len(title) > 30:
+        raise AttributeError(
+            "title of a request can only be between 5 and 30 character")
+    if len(details) < 15 or len(details) > 300:
+        raise AttributeError(
+            "details of a request can only be between 15 and 300 characters")
 
 
 class ErrorHandler():
