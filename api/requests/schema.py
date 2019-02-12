@@ -2,6 +2,7 @@ import graphene
 from datetime import datetime
 
 from graphene_sqlalchemy import (SQLAlchemyObjectType)
+from graphql import GraphQLError
 
 from api.requests.models import Request as RequestModel
 from helpers.authentication import Auth
@@ -37,6 +38,30 @@ class CreateRequest(graphene.Mutation):
         )
         with SaveDatabaseManager(request, kwargs['title'], 'Request'):
             return CreateRequest(request=request)
+
+
+class Query(graphene.ObjectType):
+    get_user_request = graphene.List(Request)
+    get_single_request = graphene.Field(Request, request_id=graphene.Int())
+
+    @Auth.user_roles('user')
+    def resolve_get_user_request(self, info):
+        user = get_user_from_db()
+        user_id = user.id
+        user_request = RequestModel.query.filter_by(user_id=user_id).all()
+        if not user_request:
+            raise GraphQLError('You have not place any maintenance request')
+        return user_request
+
+    def resolve_get_single_request(self, info, request_id):
+        user = get_user_from_db()
+        user_id = user.id
+        single_request = RequestModel.query.filter_by(id=request_id).first()
+        if not single_request:
+            raise GraphQLError('The request with this id is not found.')
+        if single_request and single_request.user_id != user_id:
+            raise GraphQLError('The request does not belong to this user')
+        return single_request
 
 
 class Mutation(graphene.ObjectType):

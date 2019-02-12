@@ -45,3 +45,53 @@ create_request_short_details = '''
         }
     }
 '''
+
+get_user_request_query = '''
+    query {
+        getUserRequest {
+            title,
+            details
+        }
+    }
+'''
+
+get_single_request_query = '''
+    query {
+        getSingleRequest (requestId:1) {
+            title,
+            details
+        }
+    }
+'''
+
+get_single_request_query_no_request = '''
+    query {
+        getSingleRequest (requestId:500) {
+            title,
+            details
+        }
+    }
+'''
+
+get_user_request_response = {
+    "data": {
+        "getUserRequest": [
+            {
+                "title": "My New Request",
+                "details": "Setting a new request detail"
+            }, {
+                "title": "New Request Two",
+                "details": "Setting a new request detail again"
+            }
+        ]
+    }
+}
+
+get_single_request_response = {
+    "data": {
+        "getSingleRequest": {
+            "title": "My New Request",
+            "details": "Setting a new request detail"
+        }
+    }
+}

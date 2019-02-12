@@ -1,10 +1,13 @@
 from flask_testing import TestCase
 from graphene.test import Client
+from datetime import datetime
 
 from app import create_app
 from schema import schema
 from helpers.database import engine, db_session, Base
+
 from api.users.models import User
+from api.requests.models import Request
 
 
 import sys
@@ -31,7 +34,7 @@ class BaseTestCase(TestCase):
             user = User(email="cwizard2011@gmail.com",
                         password="september",
                         firstname="Peter",
-                        lastname="Adeola",
+                        lastname="Adeoye",
                         user_role="admin")
             user.save()
             user_2 = User(email="sjuliet07@gmail.com",
@@ -39,6 +42,25 @@ class BaseTestCase(TestCase):
                           firstname="Juliana",
                           lastname="Adeoye")
             user_2.save()
+            user_3 = User(email="petti4eva@yahoo.com",
+                          password="september",
+                          firstname="Peter",
+                          lastname="Adeola")
+            user_3.save()
+            request = Request(title="My new request",
+                              details="Setting a new request detail",
+                              user_id=user_2.id,
+                              current_status="approved",
+                              created_at=datetime.now(),
+                              updated_at=datetime.now())
+            request.save()
+            request_two = Request(title="New request two",
+                                  details="Setting a new request detail again",
+                                  user_id=user_2.id,
+                                  current_status="pending",
+                                  created_at=datetime.now(),
+                                  updated_at=datetime.now())
+            request_two.save()
             db_session.commit()
 
     def tearDown(self):
