@@ -9,6 +9,15 @@ mutation {
 }
 '''
 
+user2_login_mutation_token = '''
+mutation {
+  loginUser(email: "petti4eva@yahoo.com"
+            password:"september"){
+    token
+  }
+}
+'''
+
 admin_login_mutation_token = '''
 mutation {
   loginUser(email: "cwizard2011@gmail.com"
