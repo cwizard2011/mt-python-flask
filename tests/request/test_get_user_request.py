@@ -23,7 +23,7 @@ class TestCreateRequest(BaseTestCase):
         """
 
         login = self.client.execute(user_login_mutation_token)
-        CommonTestCases.user_token_assert_equal(
+        CommonTestCases.token_assert_equal(
             self,
             login['data']['loginUser']['token'],
             get_user_request_query,
@@ -34,7 +34,7 @@ class TestCreateRequest(BaseTestCase):
         """Testing for getting a single user request"""
 
         login = self.client.execute(user_login_mutation_token)
-        CommonTestCases.user_token_assert_equal(
+        CommonTestCases.token_assert_equal(
             self,
             login['data']['loginUser']['token'],
             get_single_request_query,
@@ -45,7 +45,7 @@ class TestCreateRequest(BaseTestCase):
         """Testing for getting user request with no request"""
 
         login = self.client.execute(user2_login_mutation_token)
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             login['data']['loginUser']['token'],
             get_user_request_query,
@@ -56,20 +56,20 @@ class TestCreateRequest(BaseTestCase):
         """Testing for getting request with non-existent id"""
 
         user_login = self.client.execute(user_login_mutation_token)
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             user_login['data']['loginUser']['token'],
             get_single_request_query_no_request,
-            'The request with this id is not found.'
+            'The request with this id does not belong to this user'
         )
 
     def test_get_other_users_single_request(self):
         """Testing for admin create request"""
 
         user_login = self.client.execute(user2_login_mutation_token)
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             user_login['data']['loginUser']['token'],
             get_single_request_query,
-            'The request does not belong to this user'
+            'The request with this id does not belong to this user'
         )

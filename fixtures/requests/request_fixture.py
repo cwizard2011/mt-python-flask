@@ -95,3 +95,113 @@ get_single_request_response = {
         }
     }
 }
+
+update_request_mutation = '''
+    mutation {
+        updateRequest(requestId:2, title: "New request update") {
+            request{
+                title
+            }
+        }
+    }
+'''
+
+update_request_response = {
+    "data": {
+        "updateRequest": {
+            "request": {
+                "title": "New Request Update",
+            }
+        }
+    }
+}
+
+update_request_details_mutation = '''
+    mutation {
+        updateRequest(requestId:2, details: "New request details update") {
+            request{
+                details
+            }
+        }
+    }
+'''
+
+update_request_details_response = {
+    "data": {
+        "updateRequest": {
+            "request": {
+                "details": "New request details update",
+            }
+        }
+    }
+}
+
+update_request_invalid_title = '''
+    mutation {
+        updateRequest(requestId:2, title: "New") {
+            request{
+                title
+            }
+        }
+    }
+'''
+
+update_request_invalid_id = '''
+    mutation {
+        updateRequest(requestId:10, title: "New request update") {
+            request{
+                title
+            }
+        }
+    }
+'''
+
+update_approved_request = '''
+    mutation {
+        updateRequest(requestId:1, title: "New request update") {
+            request{
+                title
+            }
+        }
+    }
+'''
+
+delete_request_mutation = '''
+    mutation {
+        deleteRequest(requestId:2) {
+            request{
+                id
+            }
+        }
+    }
+'''
+
+delete_request_response = {
+    "data": {
+        "deleteRequest": {
+            "request": {
+                "id": "2",
+            }
+        }
+    }
+}
+
+delete_request_invalid_id = '''
+    mutation {
+        deleteRequest(requestId:10) {
+            request{
+                id
+            }
+        }
+    }
+'''
+
+delete_approved_request = '''
+    mutation {
+        deleteRequest(requestId:1) {
+            request{
+                id
+            }
+        }
+    }
+'''

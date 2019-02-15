@@ -56,16 +56,20 @@ def validate_fullname(firstname, lastname):
             "lastname can only be alphabets between 2 to 15 characters")
 
 
-def validate_request_field(title, details):
+def validate_request_field(**kwargs):
     """
     Function to validate title and details
     when saving a new maintenance request to the database
     :params title, details
     """
-    if len(title) < 5 or len(title) > 30:
+    if (
+        'title' in kwargs
+            and (len(kwargs['title']) < 5 or len(kwargs['title']) > 30)):
         raise AttributeError(
             "title of a request can only be between 5 and 30 character")
-    if len(details) < 15 or len(details) > 300:
+    if (
+        'details' in kwargs
+            and (len(kwargs['details']) < 15 or len(kwargs['details']) > 300)):
         raise AttributeError(
             "details of a request can only be between 15 and 300 characters")
 
