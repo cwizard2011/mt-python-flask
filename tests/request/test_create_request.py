@@ -21,7 +21,7 @@ class TestCreateRequest(BaseTestCase):
         """
 
         login = self.client.execute(user_login_mutation_token)
-        CommonTestCases.user_token_assert_equal(
+        CommonTestCases.token_assert_equal(
             self,
             login['data']['loginUser']['token'],
             create_request_mutation,
@@ -32,7 +32,7 @@ class TestCreateRequest(BaseTestCase):
         """Testing for creating a request with short title"""
 
         login = self.client.execute(user_login_mutation_token)
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             login['data']['loginUser']['token'],
             create_request_short_title,
@@ -43,7 +43,7 @@ class TestCreateRequest(BaseTestCase):
         """Testing for creating a request with short title"""
 
         login = self.client.execute(user_login_mutation_token)
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             login['data']['loginUser']['token'],
             create_request_short_details,
@@ -54,7 +54,7 @@ class TestCreateRequest(BaseTestCase):
         """Testing for admin create request"""
 
         admin_login = self.client.execute(admin_login_mutation_token)
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             admin_login['data']['loginUser']['token'],
             create_request_mutation,
@@ -64,7 +64,7 @@ class TestCreateRequest(BaseTestCase):
     def test_create_request_invalid_token(self):
         """Testing for creating request with invalid token"""
         token = 'gahahj-njdjd14525-jkhddj-jhjdj'
-        CommonTestCases.user_token_assert_in(
+        CommonTestCases.token_assert_in(
             self,
             token,
             create_request_mutation,

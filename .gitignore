@@ -3,3 +3,4 @@
 html_coverage_report/
 htmlcov/
 mt_tool.egg-info/
+.coverage

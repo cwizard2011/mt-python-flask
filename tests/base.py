@@ -80,7 +80,7 @@ class CommonTestCases(BaseTestCase):
         - user_token_assert_in
     """
 
-    def admin_token_assert_equal(self, admin_token, query, expected_response):
+    def token_assert_equal(self, token, query, expected_response):
         """
         Make a request with admin token and use assertEquals
         to compare the values
@@ -88,7 +88,7 @@ class CommonTestCases(BaseTestCase):
         :params
             - query, expected_response
         """
-        headers = {"token": admin_token}
+        headers = {"token": token}
         response = self.app_test.post(
             '/mt?query=' + query, headers=headers)
         actual_response = json.loads(response.data)
@@ -109,7 +109,7 @@ class CommonTestCases(BaseTestCase):
         response = self.app_test.post('/mt?query=' + query)
         self.assertIn(expected_response, str(response.data))
 
-    def admin_token_assert_in(self, admin_token, query, expected_response):
+    def token_assert_in(self, token, query, expected_response):
         """
         Make a request with admin token and use assertIn
         to compare the values
@@ -117,32 +117,6 @@ class CommonTestCases(BaseTestCase):
         :params
             - query, expected_response
         """
-        headers = {"token": admin_token}
-        response = self.app_test.post('/mt?query=' + query, headers=headers)
-        self.assertIn(expected_response, str(response.data))
-
-    def user_token_assert_equal(self, user_token, query, expected_response):
-        """
-        Make a request with user token and use assertEquals
-        to compare the values
-
-        :params
-            - query, expected_response
-        """
-        headers = {"token": user_token}
-        response = self.app_test.post(
-            '/mt?query=' + query, headers=headers)
-        actual_response = json.loads(response.data)
-        self.assertEqual(actual_response, expected_response)
-
-    def user_token_assert_in(self, user_token, query, expected_response):
-        """
-        Make a request with user token and use assertIn
-        to compare the values
-
-        :params
-            - query, expected_response
-        """
-        headers = {"token": user_token}
+        headers = {"token": token}
         response = self.app_test.post('/mt?query=' + query, headers=headers)
         self.assertIn(expected_response, str(response.data))
