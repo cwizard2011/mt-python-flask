@@ -74,6 +74,13 @@ def validate_request_field(**kwargs):
             "details of a request can only be between 15 and 300 characters")
 
 
+def validate_request_action_field(action):
+    actions = ['approve', 'resolve', 'reject']
+    if action not in actions:
+        raise GraphQLError(
+            "Request action can only be 'approve', 'resolve', or 'reject'")
+
+
 class ErrorHandler():
     '''Handles error'''
 

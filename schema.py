@@ -1,6 +1,7 @@
 import graphene
 import api.users.schema
 import api.requests.schema
+import api.requests.schema_admin
 
 
 class Query(
@@ -11,7 +12,8 @@ class Query(
 
 class Mutation(
     api.users.schema.Mutation,
-    api.requests.schema.Mutation
+    api.requests.schema.Mutation,
+    api.requests.schema_admin.Mutation
 ):
     pass
 
