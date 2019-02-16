@@ -79,9 +79,14 @@ get_user_request_response = {
             {
                 "title": "My New Request",
                 "details": "Setting a new request detail"
-            }, {
+            },
+            {
                 "title": "New Request Two",
                 "details": "Setting a new request detail again"
+            },
+            {
+                "title": "New Request Three",
+                "details": "Setting a new request detail now",
             }
         ]
     }

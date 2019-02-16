@@ -61,6 +61,13 @@ class BaseTestCase(TestCase):
                                   created_at=datetime.now(),
                                   updated_at=datetime.now())
             request_two.save()
+            request_three = Request(title="New request three",
+                                    details="Setting a new request detail now",
+                                    user_id=user_2.id,
+                                    current_status="resolved",
+                                    created_at=datetime.now(),
+                                    updated_at=datetime.now())
+            request_three.save()
             db_session.commit()
 
     def tearDown(self):
