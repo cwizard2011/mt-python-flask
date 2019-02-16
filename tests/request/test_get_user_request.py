@@ -6,8 +6,13 @@ from fixtures.requests.request_fixture import (
     get_user_request_response,
     get_single_request_query_no_request
 )
+from fixtures.requests.admin_update_fixture import (
+    get_all_request_query,
+    get_all_request_response
+)
 from fixtures.user.user_login import (
     user_login_mutation_token,
+    admin_login_mutation_token,
     user2_login_mutation_token)
 
 import sys
@@ -72,4 +77,14 @@ class TestCreateRequest(BaseTestCase):
             user_login['data']['loginUser']['token'],
             get_single_request_query,
             'The request with this id does not belong to this user'
+        )
+
+    def test_admin_get_all_requests(self):
+        """Testing for admin get all request"""
+        admin_login = self.client.execute(admin_login_mutation_token)
+        CommonTestCases.token_assert_equal(
+            self,
+            admin_login['data']['loginUser']['token'],
+            get_all_request_query,
+            get_all_request_response
         )
