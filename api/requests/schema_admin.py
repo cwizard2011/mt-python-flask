@@ -5,6 +5,7 @@ from graphql import GraphQLError
 
 from api.requests.models import Request as RequestModel
 from helpers.authentication import Auth
+from api.requests.schema import Request
 from utility.validator import (
     validate_empty_fields,
     validate_request_action_field)
@@ -34,6 +35,15 @@ class UpdateRequestStatus(graphene.Mutation):
         status = request.current_status
         request_action(request, status, kwargs['action'])
         return UpdateRequestStatus(request=request)
+
+
+class Query(graphene.ObjectType):
+    get_all_request = graphene.List(Request)
+
+    @Auth.user_roles('admin', 'super_admin')
+    def resolve_get_all_request(self, info):
+        all_requests = RequestModel.query.all()
+        return all_requests
 
 
 class Mutation(graphene.ObjectType):

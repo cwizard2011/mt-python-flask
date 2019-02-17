@@ -5,7 +5,8 @@ import api.requests.schema_admin
 
 
 class Query(
-    api.requests.schema.Query
+    api.requests.schema.Query,
+    api.requests.schema_admin.Query
 ):
     pass
 

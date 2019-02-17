@@ -107,3 +107,31 @@ resolve_request_invalid_status_mutation = '''
         }
     }
 '''
+
+get_all_request_query = '''
+    query {
+        getAllRequest {
+            title,
+            details
+        }
+    }
+'''
+
+get_all_request_response = {
+    "data": {
+        "getAllRequest": [
+            {
+                "title": "My New Request",
+                "details": "Setting a new request detail"
+            },
+            {
+                "title": "New Request Two",
+                "details": "Setting a new request detail again"
+            },
+            {
+                "title": "New Request Three",
+                "details": "Setting a new request detail now",
+            }
+        ]
+    }
+}
