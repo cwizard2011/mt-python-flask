@@ -55,7 +55,7 @@ pipreqs==0.4.9
 pluggy==0.8.0
 promise==2.2.1
 psycopg2-binary==2.7.6.1
-py==1.7.0
+py==1.10.0
 py-moneyed==0.7.0
 pycodestyle==2.4.0
 pycparser==2.19
