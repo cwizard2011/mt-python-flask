@@ -78,7 +78,7 @@ SQLAlchemy-Utils==0.33.8
 toml==0.10.0
 tox==3.5.3
 typing==3.6.6
-urllib3==1.24.1
+urllib3==1.26.5
 vine==1.1.4
 virtualenv==16.1.0
 WebOb==1.8.4
